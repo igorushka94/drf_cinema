@@ -21,8 +21,8 @@ class Cinema(models.Model):
     address - адрес
     """
     city = models.ForeignKey(City, verbose_name='Город', on_delete=models.CASCADE)
-    number_phone = models.CharField(max_length=255, verbose_name='Номер телефона')
-    address = models.TextField(verbose_name='Адрес кинотеатра')
+    number_phone = models.CharField('Номер телефона', max_length=255)
+    address = models.TextField('Адрес кинотеатра')
 
     class Meta:
         verbose_name = 'Кинотеатр'
@@ -38,9 +38,9 @@ class Hall(models.Model):
     number - номер зала
     count_seats - количество сидений
     """
-    cinema = models.ForeignKey(Cinema, verbose_name='Кинотеар', on_delete=models.CASCADE)
-    number = models.PositiveIntegerField(verbose_name='Номер зала')
-    count_seats = models.PositiveIntegerField(verbose_name='Количество мест')
+    cinema = models.ForeignKey(Cinema, on_delete=models.CASCADE, verbose_name='Кинотеар')
+    number = models.PositiveIntegerField('Номер зала')
+    count_seats = models.PositiveIntegerField('Количество мест')
 
     class Meta:
         verbose_name = 'Зал'
@@ -55,9 +55,9 @@ class Seat(models.Model):
     Модель Место
     available - авободно или нет
     """
-    hall = models.ForeignKey(Hall, verbose_name='Зал', on_delete=models.CASCADE)
-    number = models.PositiveIntegerField(verbose_name='Место')
-    available = models.BooleanField(verbose_name="Свобдно")
+    hall = models.ForeignKey(Hall, on_delete=models.CASCADE, verbose_name='Зал',)
+    number = models.PositiveIntegerField('Место')
+    available = models.BooleanField("Свобдно")
 
     class Meta:
         verbose_name = 'Место'
@@ -73,8 +73,8 @@ class AbstractFilm(models.Model):
     title - Название фильма
     description - Описание
     """
-    title = models.CharField(max_length=255, verbose_name='Название фильма')
-    description = models.TextField(verbose_name='Описание')
+    title = models.CharField('Название фильма', max_length=255)
+    description = models.TextField('Описание')
 
     class Meta:
         abstract = True
@@ -89,9 +89,9 @@ class Film(AbstractFilm):
     release_date - год выпуска
     country - страна
     """
-    release_date = models.CharField(max_length=255, verbose_name='Год выпуска')
-    country = models.CharField(max_length=255, verbose_name='Страна')
-    duration = models.CharField(max_length=255, verbose_name='Продолжительность фильма')
+    release_date = models.CharField('Год выпуска', max_length=255)
+    country = models.CharField('Страна', max_length=255)
+    duration = models.CharField('Продолжительность фильма', max_length=255)
 
     def __str__(self):
         return self.title
